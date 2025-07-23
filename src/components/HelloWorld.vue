@@ -1,20 +1,60 @@
-<script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true,
-  },
-})
+<script>
+  import { reactive, ref } from 'vue';
+  import AppProduct from './Products/AppProduct.vue';
+
+  export default {
+    name: 'HelloWorld',
+    components: {
+      AppProduct
+    },
+    setup(){
+      const user = reactive({
+        first_name: 'Jon',
+        last_name: 'Snow'
+      })
+
+      const admin = ref({
+        first_name: 'Admin',
+        last_name: 'Master'
+      })
+
+      let name = 'Ícaro'
+
+      const changeName = () => {
+        alert('chegou')
+        name = 'Jon Snow'
+        user.first_name = 'Joãozinho'
+        user.last_name = 'Silva'
+        admin.value.first_name = 'Super'
+      }
+
+      return {
+        user,
+        name,
+        admin,
+        changeName
+      }
+    }
+  }
 </script>
 
 <template>
   <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
-      You’ve successfully created a project with
-      <a href="https://vite.dev/" target="_blank" rel="noopener">Vite</a> +
-      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
-    </h3>
+    <h1 
+      class="green"
+      @click="changeName"
+    >{{ name }}</h1>
+    <h5>User</h5>
+    <h1 
+      class="green"
+      @click="changeName"
+    >{{ user.first_name }} {{ user.last_name }}</h1>
+    <br><br>
+    <h5>Admin</h5>
+    <h1 
+      class="green"
+      @click="changeName"
+    >{{ admin.first_name }} {{ admin.last_name }}</h1>
   </div>
 </template>
 
