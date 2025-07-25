@@ -1,5 +1,5 @@
 <script>
-  import { reactive, ref } from 'vue';
+  import { reactive, ref, computed, watch } from 'vue';
   import AppProduct from './Products/AppProduct.vue';
 
   export default {
@@ -28,11 +28,29 @@
         admin.value.first_name = 'Super'
       }
 
+      const fullNameAdmin = computed(() => {
+        return `${admin.value.first_name} ${admin.value.last_name}`
+      })
+
+      watch([admin, user], () => {
+        console.log('Lógica cabulosa')
+      }, {
+        deep: true
+      })
+
+      // olhando apenas o atributo específico do objeto
+      // watch(() => admin.value.first_name, () => {
+      //   console.log('Lógica cabulosa')
+      // }, {
+      //   deep: true
+      // })
+
       return {
         user,
         name,
         admin,
-        changeName
+        changeName,
+        fullNameAdmin
       }
     }
   }
@@ -55,6 +73,13 @@
       class="green"
       @click="changeName"
     >{{ admin.first_name }} {{ admin.last_name }}</h1>
+    <br><br>
+    <h5>Admin computed</h5>
+    <h1 
+      class="green"
+      @click="changeName"
+    >{{ fullNameAdmin }}</h1>
+    <button @click="admin.first_name = 'Jesus'">Atualizar</button>
   </div>
 </template>
 
