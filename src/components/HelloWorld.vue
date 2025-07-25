@@ -1,11 +1,13 @@
 <script>
   import { reactive, ref, computed, watch } from 'vue';
   import AppProduct from './Products/AppProduct.vue';
+  import AppHook from './AppHook.vue';
 
   export default {
     name: 'HelloWorld',
     components: {
-      AppProduct
+      AppProduct,
+      AppHook
     },
     setup(){
       const user = reactive({
@@ -38,19 +40,24 @@
         deep: true
       })
 
+      
       // olhando apenas o atributo específico do objeto
       // watch(() => admin.value.first_name, () => {
       //   console.log('Lógica cabulosa')
       // }, {
       //   deep: true
       // })
+      
+      const showAppHook = ref(true)
+
 
       return {
         user,
         name,
         admin,
         changeName,
-        fullNameAdmin
+        fullNameAdmin,
+        showAppHook
       }
     }
   }
@@ -80,6 +87,14 @@
       @click="changeName"
     >{{ fullNameAdmin }}</h1>
     <button @click="admin.first_name = 'Jesus'">Atualizar</button>
+    <br><br><br>
+
+    <AppHook
+      v-if="showAppHook"
+    ></AppHook>
+    <button
+     @click="showAppHook = !showAppHook"
+    >Toggle</button>
   </div>
 </template>
 
